@@ -38,8 +38,6 @@ dependencies {
 
     implementation project(':dialog')
 
-    // material
-    implementation "com.google.android.material:material:$material_version"
     // constraint layout
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
 }

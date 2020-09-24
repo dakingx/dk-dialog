@@ -155,7 +155,9 @@ abstract class BaseDialogFragment : DialogFragment() {
                 } else {
                     windowAttrs.width = WindowManager.LayoutParams.WRAP_CONTENT
                 }
-                windowAttrs.horizontalMargin = (2 * ctx.dp2Px(horizontalMargin)).toFloat()
+                if (horizontalMargin > 0) {
+                    windowAttrs.horizontalMargin = (2 * ctx.dp2Px(horizontalMargin)).toFloat()
+                }
                 // 高
                 if (height > 0) {
                     windowAttrs.height = ctx.dp2Px(height)
@@ -164,7 +166,9 @@ abstract class BaseDialogFragment : DialogFragment() {
                 } else {
                     windowAttrs.height = WindowManager.LayoutParams.WRAP_CONTENT
                 }
-                windowAttrs.verticalMargin = (2 * ctx.dp2Px(verticalMargin)).toFloat()
+                if (verticalMargin > 0) {
+                    windowAttrs.verticalMargin = (2 * ctx.dp2Px(verticalMargin)).toFloat()
+                }
                 // 设置
                 it.attributes = windowAttrs
             }

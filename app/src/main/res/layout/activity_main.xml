@@ -20,4 +20,17 @@
         android:text="@string/main_btn_loading"
         app:backgroundTint="@color/colorPrimary" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/photoBtn"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:text="@string/main_btn_photo"
+        app:backgroundTint="@color/colorPrimary" />
+
 </LinearLayout>
