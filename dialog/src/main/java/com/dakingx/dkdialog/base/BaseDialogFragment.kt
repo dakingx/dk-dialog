@@ -9,8 +9,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.dakingx.dkdialog.R
 import com.dakingx.dkdialog.ext.dp2Px
-import com.dakingx.dkdialog.ext.getScreenHeight
-import com.dakingx.dkdialog.ext.getScreenWidth
 
 abstract class BaseDialogFragment : DialogFragment() {
 
