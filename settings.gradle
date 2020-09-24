@@ -1,2 +1,2 @@
-include ':dkdialog'
+include ':dialog'
 include ':app'

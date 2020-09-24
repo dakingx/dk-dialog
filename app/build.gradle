@@ -36,7 +36,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    implementation project(':dkdialog')
+    implementation project(':dialog')
 
     // material
     implementation "com.google.android.material:material:$material_version"
