@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="BaseDialogStyle" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowSoftInputMode">adjustPan</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="TopTransitionAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/top_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/top_exit_anim</item>
+    </style>
+
+    <style name="BottomTransitionAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/bottom_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/bottom_exit_anim</item>
+    </style>
+
+    <style name="LeftTransitionAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/left_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/left_exit_anim</item>
+    </style>
+
+    <style name="RightTransitionAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/right_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/right_exit_anim</item>
+    </style>
+
+    <style name="FadeTransitionAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/fade_in_anim</item>
+        <item name="android:windowExitAnimation">@anim/fade_out_anim</item>
+    </style>
+
+</resources>

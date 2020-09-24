@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">dkdialog</string>
+
+    <string name="main_btn_loading">加载</string>
+</resources>
