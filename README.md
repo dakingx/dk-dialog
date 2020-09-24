@@ -1,2 +1,2 @@
-# dkdialog
+# dk-dialog
 Android Dialog

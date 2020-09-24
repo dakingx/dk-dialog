@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">dkdialog</string>
+    <string name="app_name">dk-dialog</string>
 
     <string name="main_btn_loading">加载</string>
     <string name="main_btn_photo">照片</string>

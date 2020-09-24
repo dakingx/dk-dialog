@@ -12,8 +12,8 @@ android {
     defaultConfig {
         minSdkVersion min_sdk_version
         targetSdkVersion target_sdk_version
-        versionCode Integer.valueOf(dkdialog_version_code)
-        versionName dkdialog_version_name
+        versionCode Integer.valueOf(dialog_version_code)
+        versionName dialog_version_name
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -47,7 +47,7 @@ dependencies {
     api "androidx.appcompat:appcompat:$app_compat_version"
     // material
     api "com.google.android.material:material:$material_version"
-    // cardview
+    // card view
     api 'androidx.cardview:cardview:1.0.0'
 }
 

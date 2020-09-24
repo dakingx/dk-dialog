@@ -151,7 +151,7 @@ abstract class BaseDialogFragment : DialogFragment() {
                 if (width > 0) {
                     windowAttrs.width = ctx.dp2Px(width)
                 } else if (width == 0 || width == WindowManager.LayoutParams.MATCH_PARENT) {
-                    windowAttrs.width = ctx.getScreenWidth()
+                    windowAttrs.width = WindowManager.LayoutParams.MATCH_PARENT
                 } else {
                     windowAttrs.width = WindowManager.LayoutParams.WRAP_CONTENT
                 }
@@ -162,7 +162,7 @@ abstract class BaseDialogFragment : DialogFragment() {
                 if (height > 0) {
                     windowAttrs.height = ctx.dp2Px(height)
                 } else if (height == 0 || height == WindowManager.LayoutParams.MATCH_PARENT) {
-                    windowAttrs.height = ctx.getScreenHeight()
+                    windowAttrs.height = WindowManager.LayoutParams.MATCH_PARENT
                 } else {
                     windowAttrs.height = WindowManager.LayoutParams.WRAP_CONTENT
                 }
