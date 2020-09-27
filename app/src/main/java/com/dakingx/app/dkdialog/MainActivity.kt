@@ -6,26 +6,17 @@ import android.widget.Toast
 import com.dakingx.dkdialog.custom.LoadingDialogFragment
 import com.dakingx.dkdialog.custom.PhotoDialogAction
 import com.dakingx.dkdialog.custom.PhotoDialogFragment
+import com.dakingx.dkdialog.custom.PhotoDialogListener
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), PhotoDialogListener {
 
     private val loadingDialog by lazy {
         LoadingDialogFragment()
     }
 
     private val photoDialog by lazy {
-        val context = this.applicationContext
-
-        PhotoDialogFragment().apply {
-            callback = {
-                when (it) {
-                    PhotoDialogAction.Capture -> toast(R.string.main_tip_capture)
-                    PhotoDialogAction.Gallery -> toast(R.string.main_tip_gallery)
-                    PhotoDialogAction.Cancel -> toast(R.string.main_tip_cancel)
-                }
-            }
-        }
+        PhotoDialogFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +29,14 @@ class MainActivity : AppCompatActivity() {
 
         photoBtn.setOnClickListener {
             photoDialog.show(supportFragmentManager)
+        }
+    }
+
+    override fun onPhotoAction(action: PhotoDialogAction) {
+        when (action) {
+            PhotoDialogAction.Capture -> toast(R.string.main_tip_capture)
+            PhotoDialogAction.Gallery -> toast(R.string.main_tip_gallery)
+            PhotoDialogAction.Cancel -> toast(R.string.main_tip_cancel)
         }
     }
 

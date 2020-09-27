@@ -1,6 +1,7 @@
 package com.dakingx.dkdialog.base
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
 import androidx.annotation.LayoutRes
@@ -9,6 +10,14 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.dakingx.dkdialog.R
 import com.dakingx.dkdialog.ext.dp2Px
+
+sealed class BaseDialogAction {
+    object Cancel : BaseDialogAction()
+}
+
+interface BaseDialogListener {
+    fun onBaseAction(action: BaseDialogAction)
+}
 
 abstract class BaseDialogFragment : DialogFragment() {
 
@@ -48,6 +57,8 @@ abstract class BaseDialogFragment : DialogFragment() {
 
     var cancelOutside = false
 
+    private var listener: BaseDialogListener? = null
+
     abstract fun convertView(holder: ViewHolder, fragment: BaseDialogFragment)
 
     fun show(fm: FragmentManager) {
@@ -61,7 +72,7 @@ abstract class BaseDialogFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        savedInstanceState?.also {
+        savedInstanceState?.let {
             fmName = it.getString(PARAM_FM_NAME, genDefaultFmName())
             layoutId = it.getInt(PARAM_LAYOUT_ID, getDefaultLayoutId())
             fmTheme = it.getInt(PARAM_FM_THEME, 0)
@@ -78,12 +89,14 @@ abstract class BaseDialogFragment : DialogFragment() {
         if (fmTheme != 0) {
             setStyle(STYLE_NO_TITLE, fmTheme)
         }
+
+        listener = context as? BaseDialogListener
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.also {
+        outState.let {
             it.putString(PARAM_FM_NAME, fmName)
             it.putInt(PARAM_LAYOUT_ID, layoutId)
             it.putInt(PARAM_FM_THEME, fmTheme)
@@ -112,6 +125,12 @@ abstract class BaseDialogFragment : DialogFragment() {
         super.onStart()
 
         initParams()
+    }
+
+    override fun onCancel(dialog: DialogInterface) {
+        super.onCancel(dialog)
+
+        listener?.onBaseAction(BaseDialogAction.Cancel)
     }
 
     @SuppressLint("RtlHardcoded")

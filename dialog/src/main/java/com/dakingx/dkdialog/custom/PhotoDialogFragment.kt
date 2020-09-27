@@ -1,5 +1,7 @@
 package com.dakingx.dkdialog.custom
 
+import android.content.DialogInterface
+import android.os.Bundle
 import android.view.Gravity
 import android.view.WindowManager
 import androidx.appcompat.widget.AppCompatButton
@@ -13,6 +15,10 @@ sealed class PhotoDialogAction {
     object Cancel : PhotoDialogAction()
 }
 
+interface PhotoDialogListener {
+    fun onPhotoAction(action: PhotoDialogAction)
+}
+
 class PhotoDialogFragment : BaseDialogFragment() {
 
     init {
@@ -24,26 +30,38 @@ class PhotoDialogFragment : BaseDialogFragment() {
         cancelOutside = true
     }
 
-    var callback: (PhotoDialogAction) -> Unit = {}
+    private var listener: PhotoDialogListener? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        listener = context as? PhotoDialogListener
+    }
 
     override fun convertView(holder: ViewHolder, fragment: BaseDialogFragment) {
         // 拍照
         val captureBtn = holder.getView<AppCompatButton>(R.id.btn_capture)
         captureBtn.setOnClickListener {
-            callback.invoke(PhotoDialogAction.Capture)
+            listener?.onPhotoAction(PhotoDialogAction.Capture)
             dismiss()
         }
         // 相册
         val galleryBtn = holder.getView<AppCompatButton>(R.id.btn_gallery)
         galleryBtn.setOnClickListener {
-            callback.invoke(PhotoDialogAction.Gallery)
+            listener?.onPhotoAction(PhotoDialogAction.Gallery)
             dismiss()
         }
         // 取消
         val cancelBtn = holder.getView<AppCompatButton>(R.id.btn_cancel)
         cancelBtn.setOnClickListener {
-            callback.invoke(PhotoDialogAction.Cancel)
+            listener?.onPhotoAction(PhotoDialogAction.Cancel)
             dismiss()
         }
+    }
+
+    override fun onCancel(dialog: DialogInterface) {
+        super.onCancel(dialog)
+
+        listener?.onPhotoAction(PhotoDialogAction.Cancel)
     }
 }
