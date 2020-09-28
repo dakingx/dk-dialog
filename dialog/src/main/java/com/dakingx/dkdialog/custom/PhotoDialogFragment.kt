@@ -22,7 +22,7 @@ interface PhotoDialogListener {
 class PhotoDialogFragment : BaseDialogFragment() {
 
     init {
-        fmName = "PhotoDialogFragment-${System.currentTimeMillis()}"
+        fmName = "photo_dialog_fragment_${System.currentTimeMillis()}"
         layoutId = R.layout.dialog_photo
         width = WindowManager.LayoutParams.MATCH_PARENT
         height = WindowManager.LayoutParams.WRAP_CONTENT

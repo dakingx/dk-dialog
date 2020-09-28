@@ -64,39 +64,29 @@ abstract class BaseDialogFragment : DialogFragment() {
     fun show(fm: FragmentManager) {
         val transaction = fm.beginTransaction()
         if (this.isAdded) {
-            transaction.remove(this).commitNow()
+            transaction.remove(this)
         }
         transaction.add(this, fmName).commitNow()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        savedInstanceState?.let {
-            fmName = it.getString(PARAM_FM_NAME, genDefaultFmName())
-            layoutId = it.getInt(PARAM_LAYOUT_ID, getDefaultLayoutId())
-            fmTheme = it.getInt(PARAM_FM_THEME, 0)
-            width = it.getInt(PARAM_WIDTH, WindowManager.LayoutParams.WRAP_CONTENT)
-            height = it.getInt(PARAM_HEIGHT, WindowManager.LayoutParams.WRAP_CONTENT)
-            horizontalMargin = it.getInt(PARAM_HORIZONTAL_MARGIN, 0)
-            verticalMargin = it.getInt(PARAM_VERTICAL_MARGIN, 0)
-            gravity = it.getInt(PARAM_GRAVITY, 0)
-            dimAmount = it.getFloat(PARAM_DIM_AMOUNT, 0.5F)
-            transitionAnim = it.getInt(PARAM_TRANSITION_ANIM, 0)
-            cancelOutside = it.getBoolean(PARAM_CANCEL_OUTSIDE, false)
+    protected open fun restoreState(bundle: Bundle?) {
+        bundle?.apply {
+            fmName = getString(PARAM_FM_NAME, genDefaultFmName())
+            layoutId = getInt(PARAM_LAYOUT_ID, getDefaultLayoutId())
+            fmTheme = getInt(PARAM_FM_THEME, 0)
+            width = getInt(PARAM_WIDTH, WindowManager.LayoutParams.WRAP_CONTENT)
+            height = getInt(PARAM_HEIGHT, WindowManager.LayoutParams.WRAP_CONTENT)
+            horizontalMargin = getInt(PARAM_HORIZONTAL_MARGIN, 0)
+            verticalMargin = getInt(PARAM_VERTICAL_MARGIN, 0)
+            gravity = getInt(PARAM_GRAVITY, Gravity.CENTER)
+            dimAmount = getFloat(PARAM_DIM_AMOUNT, 0.5F)
+            transitionAnim = getInt(PARAM_TRANSITION_ANIM, 0)
+            cancelOutside = getBoolean(PARAM_CANCEL_OUTSIDE, false)
         }
-
-        if (fmTheme != 0) {
-            setStyle(STYLE_NO_TITLE, fmTheme)
-        }
-
-        listener = context as? BaseDialogListener
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
-        outState.let {
+    protected open fun storeState(bundle: Bundle) {
+        bundle.let {
             it.putString(PARAM_FM_NAME, fmName)
             it.putInt(PARAM_LAYOUT_ID, layoutId)
             it.putInt(PARAM_FM_THEME, fmTheme)
@@ -109,6 +99,25 @@ abstract class BaseDialogFragment : DialogFragment() {
             it.putInt(PARAM_TRANSITION_ANIM, transitionAnim)
             it.putBoolean(PARAM_CANCEL_OUTSIDE, cancelOutside)
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        restoreState(arguments)
+        restoreState(savedInstanceState)
+
+        if (fmTheme != 0) {
+            setStyle(STYLE_NO_TITLE, fmTheme)
+        }
+
+        listener = context as? BaseDialogListener
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        storeState(outState)
     }
 
     override fun onCreateView(

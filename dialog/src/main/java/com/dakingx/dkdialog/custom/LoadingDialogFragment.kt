@@ -8,7 +8,7 @@ import com.dakingx.dkdialog.base.ViewHolder
 class LoadingDialogFragment : BaseDialogFragment() {
 
     init {
-        fmName = "LoadingDialogFragment-${System.currentTimeMillis()}"
+        fmName = "loading_dialog_fragment_${System.currentTimeMillis()}"
         layoutId = R.layout.dialog_loading
         gravity = Gravity.CENTER
         cancelOutside = true
