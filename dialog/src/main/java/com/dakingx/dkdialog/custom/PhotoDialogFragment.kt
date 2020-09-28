@@ -38,7 +38,7 @@ class PhotoDialogFragment : BaseDialogFragment() {
         listener = context as? PhotoDialogListener
     }
 
-    override fun convertView(holder: ViewHolder, fragment: BaseDialogFragment) {
+    override fun convertView(holder: ViewHolder) {
         // 拍照
         val captureBtn = holder.getView<AppCompatButton>(R.id.btn_capture)
         captureBtn.setOnClickListener {

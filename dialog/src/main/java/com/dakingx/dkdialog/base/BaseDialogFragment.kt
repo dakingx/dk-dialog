@@ -22,17 +22,17 @@ interface BaseDialogListener {
 abstract class BaseDialogFragment : DialogFragment() {
 
     companion object {
-        private const val PARAM_FM_NAME = "param_fm_name"
-        private const val PARAM_LAYOUT_ID = "param_layout_id"
-        private const val PARAM_FM_THEME = "param_fm_theme"
-        private const val PARAM_WIDTH = "param_width"
-        private const val PARAM_HEIGHT = "param_height"
-        private const val PARAM_HORIZONTAL_MARGIN = "param_horizontal_margin"
-        private const val PARAM_VERTICAL_MARGIN = "param_vertical_margin"
-        private const val PARAM_GRAVITY = "param_gravity"
-        private const val PARAM_DIM_AMOUNT = "param_dim_amount"
-        private const val PARAM_TRANSITION_ANIM = "param_transition_anim"
-        private const val PARAM_CANCEL_OUTSIDE = "param_cancel_outside"
+        const val ARG_FM_NAME = "arg_fm_name"
+        const val ARG_LAYOUT_ID = "arg_layout_id"
+        const val ARG_FM_THEME = "arg_fm_theme"
+        const val ARG_WIDTH = "arg_width"
+        const val ARG_HEIGHT = "arg_height"
+        const val ARG_HORIZONTAL_MARGIN = "arg_horizontal_margin"
+        const val ARG_VERTICAL_MARGIN = "arg_vertical_margin"
+        const val ARG_GRAVITY = "arg_gravity"
+        const val ARG_DIM_AMOUNT = "arg_dim_amount"
+        const val ARG_TRANSITION_ANIM = "arg_transition_anim"
+        const val ARG_CANCEL_OUTSIDE = "arg_cancel_outside"
     }
 
     var fmName = genDefaultFmName()
@@ -59,7 +59,7 @@ abstract class BaseDialogFragment : DialogFragment() {
 
     private var listener: BaseDialogListener? = null
 
-    abstract fun convertView(holder: ViewHolder, fragment: BaseDialogFragment)
+    abstract fun convertView(holder: ViewHolder)
 
     fun show(fm: FragmentManager) {
         val transaction = fm.beginTransaction()
@@ -71,33 +71,55 @@ abstract class BaseDialogFragment : DialogFragment() {
 
     protected open fun restoreState(bundle: Bundle?) {
         bundle?.apply {
-            fmName = getString(PARAM_FM_NAME, genDefaultFmName())
-            layoutId = getInt(PARAM_LAYOUT_ID, getDefaultLayoutId())
-            fmTheme = getInt(PARAM_FM_THEME, 0)
-            width = getInt(PARAM_WIDTH, WindowManager.LayoutParams.WRAP_CONTENT)
-            height = getInt(PARAM_HEIGHT, WindowManager.LayoutParams.WRAP_CONTENT)
-            horizontalMargin = getInt(PARAM_HORIZONTAL_MARGIN, 0)
-            verticalMargin = getInt(PARAM_VERTICAL_MARGIN, 0)
-            gravity = getInt(PARAM_GRAVITY, Gravity.CENTER)
-            dimAmount = getFloat(PARAM_DIM_AMOUNT, 0.5F)
-            transitionAnim = getInt(PARAM_TRANSITION_ANIM, 0)
-            cancelOutside = getBoolean(PARAM_CANCEL_OUTSIDE, false)
+            if (containsKey(ARG_FM_NAME)) {
+                fmName = getString(ARG_FM_NAME, genDefaultFmName())
+            }
+            if (containsKey(ARG_LAYOUT_ID)) {
+                layoutId = getInt(ARG_LAYOUT_ID, getDefaultLayoutId())
+            }
+            if (containsKey(ARG_FM_THEME)) {
+                fmTheme = getInt(ARG_FM_THEME)
+            }
+            if (containsKey(ARG_WIDTH)) {
+                width = getInt(ARG_WIDTH, WindowManager.LayoutParams.WRAP_CONTENT)
+            }
+            if (containsKey(ARG_HEIGHT)) {
+                height = getInt(ARG_HEIGHT, WindowManager.LayoutParams.WRAP_CONTENT)
+            }
+            if (containsKey(ARG_HORIZONTAL_MARGIN)) {
+                horizontalMargin = getInt(ARG_HORIZONTAL_MARGIN)
+            }
+            if (containsKey(ARG_VERTICAL_MARGIN)) {
+                verticalMargin = getInt(ARG_VERTICAL_MARGIN)
+            }
+            if (containsKey(ARG_GRAVITY)) {
+                gravity = getInt(ARG_GRAVITY, Gravity.CENTER)
+            }
+            if (containsKey(ARG_DIM_AMOUNT)) {
+                dimAmount = getFloat(ARG_DIM_AMOUNT, 0.5F)
+            }
+            if (containsKey(ARG_TRANSITION_ANIM)) {
+                transitionAnim = getInt(ARG_TRANSITION_ANIM)
+            }
+            if (containsKey(ARG_CANCEL_OUTSIDE)) {
+                cancelOutside = getBoolean(ARG_CANCEL_OUTSIDE)
+            }
         }
     }
 
     protected open fun storeState(bundle: Bundle) {
         bundle.let {
-            it.putString(PARAM_FM_NAME, fmName)
-            it.putInt(PARAM_LAYOUT_ID, layoutId)
-            it.putInt(PARAM_FM_THEME, fmTheme)
-            it.putInt(PARAM_WIDTH, width)
-            it.putInt(PARAM_HEIGHT, height)
-            it.putInt(PARAM_HORIZONTAL_MARGIN, horizontalMargin)
-            it.putInt(PARAM_VERTICAL_MARGIN, verticalMargin)
-            it.putInt(PARAM_GRAVITY, gravity)
-            it.putFloat(PARAM_DIM_AMOUNT, dimAmount)
-            it.putInt(PARAM_TRANSITION_ANIM, transitionAnim)
-            it.putBoolean(PARAM_CANCEL_OUTSIDE, cancelOutside)
+            it.putString(ARG_FM_NAME, fmName)
+            it.putInt(ARG_LAYOUT_ID, layoutId)
+            it.putInt(ARG_FM_THEME, fmTheme)
+            it.putInt(ARG_WIDTH, width)
+            it.putInt(ARG_HEIGHT, height)
+            it.putInt(ARG_HORIZONTAL_MARGIN, horizontalMargin)
+            it.putInt(ARG_VERTICAL_MARGIN, verticalMargin)
+            it.putInt(ARG_GRAVITY, gravity)
+            it.putFloat(ARG_DIM_AMOUNT, dimAmount)
+            it.putInt(ARG_TRANSITION_ANIM, transitionAnim)
+            it.putBoolean(ARG_CANCEL_OUTSIDE, cancelOutside)
         }
     }
 
@@ -126,7 +148,7 @@ abstract class BaseDialogFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(layoutId, container, false)
-        convertView(ViewHolder(view), this)
+        convertView(ViewHolder(view))
         return view
     }
 

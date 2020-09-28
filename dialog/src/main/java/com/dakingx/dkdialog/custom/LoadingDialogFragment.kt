@@ -14,6 +14,6 @@ class LoadingDialogFragment : BaseDialogFragment() {
         cancelOutside = true
     }
 
-    override fun convertView(holder: ViewHolder, fragment: BaseDialogFragment) {
+    override fun convertView(holder: ViewHolder) {
     }
 }
