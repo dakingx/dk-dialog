@@ -8,12 +8,13 @@ class ViewHolder(
 ) {
     private val views = SparseArray<View>()
 
-    fun <T : View> getView(viewId: Int): View {
+    @Suppress("UNCHECKED_CAST")
+    fun <T : View> getView(viewId: Int): T {
         var view = views.get(viewId)
         if (view == null) {
             view = convertView.findViewById(viewId)
             views.put(viewId, view)
         }
-        return view
+        return view as T
     }
 }
