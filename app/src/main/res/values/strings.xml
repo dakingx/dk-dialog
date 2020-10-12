@@ -3,8 +3,11 @@
 
     <string name="main_btn_loading">加载</string>
     <string name="main_btn_photo">照片</string>
+    <string name="main_btn_error_tip">居中的错误提示</string>
 
     <string name="main_tip_capture">拍照</string>
     <string name="main_tip_gallery">相册</string>
     <string name="main_tip_cancel">取消</string>
+
+    <string name="tip_dialog_msg_error">错误提示</string>
 </resources>

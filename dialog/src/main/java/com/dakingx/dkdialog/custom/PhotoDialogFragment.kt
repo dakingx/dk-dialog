@@ -16,7 +16,7 @@ sealed class PhotoDialogAction {
 }
 
 interface PhotoDialogListener {
-    fun onPhotoAction(action: PhotoDialogAction)
+    fun onPhotoAction(action: PhotoDialogAction, dialog: PhotoDialogFragment)
 }
 
 class PhotoDialogFragment : BaseDialogFragment() {
@@ -42,19 +42,19 @@ class PhotoDialogFragment : BaseDialogFragment() {
         // 拍照
         val captureBtn = holder.getView<AppCompatButton>(R.id.btn_capture)
         captureBtn.setOnClickListener {
-            listener?.onPhotoAction(PhotoDialogAction.Capture)
+            listener?.onPhotoAction(PhotoDialogAction.Capture, this)
             dismiss()
         }
         // 相册
         val galleryBtn = holder.getView<AppCompatButton>(R.id.btn_gallery)
         galleryBtn.setOnClickListener {
-            listener?.onPhotoAction(PhotoDialogAction.Gallery)
+            listener?.onPhotoAction(PhotoDialogAction.Gallery, this)
             dismiss()
         }
         // 取消
         val cancelBtn = holder.getView<AppCompatButton>(R.id.btn_cancel)
         cancelBtn.setOnClickListener {
-            listener?.onPhotoAction(PhotoDialogAction.Cancel)
+            listener?.onPhotoAction(PhotoDialogAction.Cancel, this)
             dismiss()
         }
     }
@@ -62,6 +62,6 @@ class PhotoDialogFragment : BaseDialogFragment() {
     override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
 
-        listener?.onPhotoAction(PhotoDialogAction.Cancel)
+        listener?.onPhotoAction(PhotoDialogAction.Cancel, this)
     }
 }

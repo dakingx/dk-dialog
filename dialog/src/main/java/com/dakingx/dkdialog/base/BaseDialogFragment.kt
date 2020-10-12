@@ -10,6 +10,8 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.dakingx.dkdialog.R
 import com.dakingx.dkdialog.ext.dp2Px
+import com.dakingx.dkdialog.ext.getScreenHeight
+import com.dakingx.dkdialog.ext.getScreenWidth
 
 sealed class BaseDialogAction {
     object Cancel : BaseDialogAction()
@@ -45,16 +47,24 @@ abstract class BaseDialogFragment : DialogFragment() {
 
     var width = WindowManager.LayoutParams.WRAP_CONTENT
     var height = WindowManager.LayoutParams.WRAP_CONTENT
+
+    // dialog的水平间距，仅当width为MATCH_PARENT时有效
     var horizontalMargin = 0
+
+    // dialog的垂直间距，仅当height为MATCH_PARENT时有效
     var verticalMargin = 0
 
+    // dialog的位置，默认为居中
     var gravity = Gravity.CENTER
 
+    // 灰色背景透明度，默认为0.5F，范围为0~1.0
     var dimAmount = 0.5F
 
+    // dialog的入场和出场动画
     @StyleRes
     var transitionAnim = 0
 
+    // 点击dialog布局外是否可取消，默认为false
     var cancelOutside = false
 
     private var listener: BaseDialogListener? = null
@@ -199,23 +209,23 @@ abstract class BaseDialogFragment : DialogFragment() {
                 if (width > 0) {
                     windowAttrs.width = ctx.dp2Px(width)
                 } else if (width == 0 || width == WindowManager.LayoutParams.MATCH_PARENT) {
-                    windowAttrs.width = WindowManager.LayoutParams.MATCH_PARENT
+                    windowAttrs.width =
+                        if (horizontalMargin > 0) ctx.getScreenWidth() - (2 * ctx.dp2Px(
+                            horizontalMargin
+                        )) else ctx.getScreenWidth()
                 } else {
                     windowAttrs.width = WindowManager.LayoutParams.WRAP_CONTENT
-                }
-                if (horizontalMargin > 0) {
-                    windowAttrs.horizontalMargin = (2 * ctx.dp2Px(horizontalMargin)).toFloat()
                 }
                 // 高
                 if (height > 0) {
                     windowAttrs.height = ctx.dp2Px(height)
                 } else if (height == 0 || height == WindowManager.LayoutParams.MATCH_PARENT) {
-                    windowAttrs.height = WindowManager.LayoutParams.MATCH_PARENT
+                    windowAttrs.height =
+                        if (verticalMargin > 0) ctx.getScreenHeight() - (2 * ctx.dp2Px(
+                            verticalMargin
+                        )) else ctx.getScreenHeight()
                 } else {
                     windowAttrs.height = WindowManager.LayoutParams.WRAP_CONTENT
-                }
-                if (verticalMargin > 0) {
-                    windowAttrs.verticalMargin = (2 * ctx.dp2Px(verticalMargin)).toFloat()
                 }
                 // 设置
                 it.attributes = windowAttrs
