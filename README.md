@@ -20,7 +20,7 @@ allprojects {
 
 ```groovy
 dependencies {
-	implementation 'com.github.dakingx:dk-dialog:<请查看已发布版本>'
+    implementation 'com.github.dakingx:dk-dialog:<请查看已发布版本>'
 }
 ```
 
