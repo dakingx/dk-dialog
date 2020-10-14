@@ -24,6 +24,40 @@ dependencies {
 }
 ```
 
+## 设置主题样式
+本组件使用Material Design系列的UI组件，并适配了夜间模式。
+
+App项目`AndroidManifest.xml`中的`<application>`要使用Material Design主题。
+
+```xml
+<resources>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight">
+        ...
+    </style>
+    ...
+</resources>
+```
+
+```xml
+<manifest>
+    <application android:theme="@style/AppTheme">
+    ...
+</manifest>
+```
+
+可以通过修改res/values/colors.xml和res/values-night/colors.xml中的以下配色来调整本SDK的UI颜色。
+
+```xml
+<resources>
+    <color name="colorPrimary">#1E88E5</color>
+
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorOnSurface">#000000</color>
+
+    <color name="textColorSecondary">#616161</color>
+</resources>
+```
+
 ## 使用DKDialog
 创建DKDialog并配置。
 
