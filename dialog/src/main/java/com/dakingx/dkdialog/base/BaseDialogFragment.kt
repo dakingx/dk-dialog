@@ -67,7 +67,7 @@ abstract class BaseDialogFragment : DialogFragment() {
     // 点击dialog布局外是否可取消，默认为false
     var cancelOutside = false
 
-    private var listener: BaseDialogListener? = null
+    var baseDialogListener: BaseDialogListener? = null
 
     abstract fun convertView(holder: ViewHolder)
 
@@ -143,7 +143,9 @@ abstract class BaseDialogFragment : DialogFragment() {
             setStyle(STYLE_NO_TITLE, fmTheme)
         }
 
-        listener = context as? BaseDialogListener
+        if (baseDialogListener == null) {
+            baseDialogListener = context as? BaseDialogListener
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -168,10 +170,16 @@ abstract class BaseDialogFragment : DialogFragment() {
         initParams()
     }
 
+    override fun onDestroy() {
+        baseDialogListener = null
+
+        super.onDestroy()
+    }
+
     override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
 
-        listener?.onBaseAction(BaseDialogAction.Cancel)
+        baseDialogListener?.onBaseAction(BaseDialogAction.Cancel)
     }
 
     @SuppressLint("RtlHardcoded")
